@@ -42,6 +42,7 @@ const UserAccordion = ({userList}: IUserAccordionProps) => {
   return (
     <>
       {userList?.items?.map((user, index) => {
+        userData && console.log(new Date(userData.created_at).toLocaleDateString('en-US'));
         return (
           <Accordion
             expanded={expanded === `panel${index}`}
@@ -101,10 +102,16 @@ const UserAccordion = ({userList}: IUserAccordionProps) => {
                     <ListItemText primary={userData?.public_repos || 'None'} secondary='Public Repos' />
                   </ListItem>
                   <ListItem>
-                    <ListItemText primary={userData?.created_at.toString() || 'Not Specified'} secondary='Created' />
+                    <ListItemText
+                      primary={userData && new Date(userData.created_at).toLocaleDateString('en-US') || 'Not Specified'}
+                      secondary='Created'
+                    />
                   </ListItem>
                   <ListItem>
-                    <ListItemText primary={userData?.updated_at.toString() || 'Not Specified'} secondary='Latest Update' />
+                    <ListItemText
+                      primary={userData && new Date(userData.updated_at).toLocaleDateString('en-US') || 'Not Specified'}
+                      secondary='Latest Update'
+                    />
                   </ListItem>
                 </List>
               </Stack>
