@@ -24,12 +24,13 @@ export interface ISearchBarProps {
     searchType: SearchType,
     resultsPerPage: number,
     currentPage: number
-    ) => void,
+  ) => void,
 }
 
 const SearchBar = ({ handleSubmit}: ISearchBarProps) => {
-  const [queryString, setQueryString] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [pageCount, setPageCount] = useState(34);
+  const [queryString, setQueryString] = useState('');
   const [resultsPerPage, setResultsPerPage] = useState(50);
   const [searchType, setSearchType] = useState(SearchType.Name);
   const [textError, setTextError] = useState(false);
@@ -45,7 +46,20 @@ const SearchBar = ({ handleSubmit}: ISearchBarProps) => {
     handleSubmit(queryString, searchType, resultsPerPage, currentPage);
   };
 
-  useEffect(() => handleSubmit(queryString, searchType, resultsPerPage, currentPage), [currentPage, resultsPerPage]);
+  useEffect(() => {
+    const pageLimit = Math.ceil(1000 / resultsPerPage);
+    if (currentPage > pageLimit) {
+      setCurrentPage(pageLimit);
+    } else {
+      handleSubmit(queryString, searchType, resultsPerPage, currentPage);
+    }
+    setPageCount(pageLimit);
+  }, [resultsPerPage]);
+
+  useEffect(() => {
+    handleSubmit(queryString, searchType, resultsPerPage, currentPage)
+  }, [currentPage]);
+
 
   return (
     <>
@@ -104,7 +118,7 @@ const SearchBar = ({ handleSubmit}: ISearchBarProps) => {
         </Box>
         <Pagination
           color='primary'
-          count={Math.ceil(1000 / resultsPerPage)}
+          count={pageCount}
           onChange={(_, val) => setCurrentPage(val)}
           page={currentPage}
         />

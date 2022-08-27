@@ -106,13 +106,13 @@ const UserAccordion = ({userList}: IUserAccordionProps) => {
                   </ListItem>
                   <ListItem>
                     <ListItemText
-                      primary={userData && new Date(userData.created_at).toLocaleDateString('en-US') || 'Not Specified'}
+                      primary={userData && (new Date(userData.created_at).toLocaleDateString('en-US') || 'Not Specified')}
                       secondary='Created'
                     />
                   </ListItem>
                   <ListItem>
                     <ListItemText
-                      primary={userData && new Date(userData.updated_at).toLocaleDateString('en-US') || 'Not Specified'}
+                      primary={userData && (new Date(userData.updated_at).toLocaleDateString('en-US') || 'Not Specified')}
                       secondary='Latest Update'
                     />
                   </ListItem>
