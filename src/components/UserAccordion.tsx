@@ -37,7 +37,7 @@ const UserAccordion = ({userList}: IUserAccordionProps) => {
     setQueryParams(userId);
   };
 
-  userData && console.log(userData);
+  if (error) console.error(error.message);
 
   return (
     <>

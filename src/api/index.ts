@@ -16,7 +16,7 @@ export const getUser = async (id: number): Promise<User> => {
 
 export const searchUsers = async (query: string, searchType: SearchType): Promise<UserList> => {
   try {
-    return await fetch(BASE_URL + 'search/users?q=' + `${query}%20in:${searchType}`).then(res => res.json());
+    return await fetch(BASE_URL + `search/users?q=${query}%20in:${searchType}`).then(res => res.json());
   } catch(err: any) {
     return err;
   };
