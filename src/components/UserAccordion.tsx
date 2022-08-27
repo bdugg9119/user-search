@@ -60,6 +60,10 @@ const UserAccordion = ({userList}: IUserAccordionProps) => {
                 <Avatar
                   alt={`${user}'s profile picture`}
                   src={user.avatar_url}
+                  sx={{
+                    height: expanded === `panel${index}` ? '100px' : '40px',
+                    width: expanded === `panel${index}` ? '100px' : '40px'
+                  }}
                 />
               </Box>
               <Typography
