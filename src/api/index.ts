@@ -14,9 +14,16 @@ export const getUser = async (id: number): Promise<User> => {
   };
 };
 
-export const searchUsers = async (query: string, searchType: SearchType): Promise<UserList> => {
+export const searchUsers = async (
+  query: string,
+  searchType: SearchType,
+  resultsPerPage: number,
+  currentPage: number
+  ): Promise<UserList> => {
+  const searchQuery = `search/users?q=${query}%20in:${searchType}&per_page=${resultsPerPage}&page=${currentPage}`;
+
   try {
-    return await fetch(BASE_URL + `search/users?q=${query}%20in:${searchType}`).then(res => res.json());
+    return await fetch(BASE_URL + searchQuery).then(res => res.json());
   } catch(err: any) {
     return err;
   };

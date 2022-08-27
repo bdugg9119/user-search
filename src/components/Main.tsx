@@ -13,22 +13,33 @@ import SearchBar from './SearchBar';
 import UserAccordion from './UserAccordion';
 
 const Main = () => {
-  const [queryParams, setQueryParams] = useState({ queryString: '', searchType: SearchType.Name });
-  const {
-    data: userList,
-    error,
-    isFetching
-  } = useQuery(
+  const [queryParams, setQueryParams] = useState({
+    queryString: '',
+    searchType: SearchType.Name,
+    resultsPerPage: 30,
+    currentPage: 1
+  });
+  const { data: userList, error, isFetching } = useQuery(
     ['users', queryParams],
-    () => searchUsers(queryParams.queryString, queryParams.searchType),
+    () => searchUsers(
+      queryParams.queryString,
+      queryParams.searchType,
+      queryParams.resultsPerPage,
+      queryParams.currentPage
+    ),
     {
       enabled: !!queryParams.queryString,
       refetchOnWindowFocus: false
     }
   );
   
-  const submitQuery = (queryString: string, searchType: SearchType) => {
-    setQueryParams({ queryString: queryString, searchType: searchType });
+  const submitQuery = (
+    queryString: string,
+    searchType: SearchType,
+    resultsPerPage: number,
+    currentPage: number
+  ) => {
+    setQueryParams({ queryString, searchType, resultsPerPage, currentPage });
   };
 
   if (error) console.error(error);
