@@ -53,7 +53,7 @@ const Main = () => {
           <CircularProgress size={80}/>
         </Box>
       )}
-      <UserAccordion userList={userList?.data} />
+      {!isFetching && <UserAccordion userList={userList?.data} />}
     </>
   );
 };

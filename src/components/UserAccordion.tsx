@@ -13,7 +13,7 @@ import {
   Stack,
   Typography
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import { getUser } from '../api';
@@ -36,6 +36,8 @@ const UserAccordion = ({userList}: IUserAccordionProps) => {
     setExpanded(isExpanded ? panel : false);
     setUsername(username);
   };
+
+  useEffect(() => console.log(username), [username]);
 
   if (error) console.error(error);
 
