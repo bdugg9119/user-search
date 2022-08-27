@@ -42,7 +42,6 @@ const UserAccordion = ({userList}: IUserAccordionProps) => {
   return (
     <>
       {userList?.items?.map((user, index) => {
-        userData && console.log(new Date(userData.created_at).toLocaleDateString('en-US'));
         return (
           <Accordion
             expanded={expanded === `panel${index}`}
