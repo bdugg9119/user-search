@@ -48,12 +48,13 @@ const Main = () => {
     <>
       <SearchBar handleSubmit={submitQuery} />
       <Divider sx={{ marginBottom: '25px', marginTop: '25px' }}/>
-      {isFetching && (
+      {isFetching ? (
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <CircularProgress size={80}/>
         </Box>
+      ) : (
+        <UserAccordion userList={userList?.data} />
       )}
-      {!isFetching && <UserAccordion userList={userList?.data} />}
     </>
   );
 };
