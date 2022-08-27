@@ -7,7 +7,7 @@ import {
 import {useQuery} from '@tanstack/react-query';
 
 import { searchUsers } from '../api';
-import { SearchType } from '../types';
+import { ListUser, SearchType } from '../types';
 
 import SearchBar from './SearchBar';
 import UserAccordion from './UserAccordion';
@@ -53,7 +53,7 @@ const Main = () => {
           <CircularProgress size={80}/>
         </Box>
       ) : (
-        <UserAccordion userList={userList?.data} />
+        <UserAccordion userList={userList as ListUser[]} />
       )}
     </>
   );

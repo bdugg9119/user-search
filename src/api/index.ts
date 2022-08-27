@@ -1,15 +1,18 @@
-import {
-  User,
-  UserList,
-  SearchType
-} from '../types';
-
 import { octokit } from '../App';
 
+import { SearchType } from '../types';
+
 export const getUser = async (username: string): Promise<any> => {
+  const testData = await octokit.request(`GET /users/${username}`);
+  console.log(testData);
   try {
-    return await octokit.request(`GET /users/${username}`);
-  } catch (err: any) {
+    return await octokit.request(`GET /users/${username}`).then(res => res.data);
+  } catch (err: unknown) {
+    if (typeof err === "string") {
+      console.error(err.toUpperCase()); // works, `e` narrowed to string
+    } else if (err instanceof Error) {
+      console.error(err.message); // works, `e` narrowed to Error
+    }
     return err;
   };
 };
@@ -19,16 +22,16 @@ export const searchUsers = async (
   searchType: SearchType,
   resultsPerPage: number,
   currentPage: number
-  ) => {
-  const searchQuery = {
-    page: currentPage,
-    per_page: resultsPerPage,
-    q: query + ` in:${searchType}`
-  };
+  ): Promise<any> => {
+  const searchQuery = { page: currentPage, per_page: resultsPerPage, q: query + ` in:${searchType}` };
 
   try {
-    return await octokit.rest.search.users(searchQuery); 
-  } catch(err: any) {
-    return err;
+    return await octokit.rest.search.users(searchQuery).then(res => res.data.items); 
+  } catch (err: unknown) {
+    if (typeof err === "string") {
+      console.error(err.toUpperCase()); // works, `e` narrowed to string
+    } else if (err instanceof Error) {
+      console.error(err.message); // works, `e` narrowed to Error
+    }
   };
 };

@@ -55,12 +55,6 @@ export type User = {
   url: string
 };
 
-export type UserList = {
-  incomplete_results: boolean,
-  items: ListUser[],
-  total_count: number
-};
-
 export enum SearchType {
   Email = 'email',
   Name = 'name'
