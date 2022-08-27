@@ -3,8 +3,6 @@ import { octokit } from '../App';
 import { SearchType } from '../types';
 
 export const getUser = async (username: string): Promise<any> => {
-  const testData = await octokit.request(`GET /users/${username}`);
-  console.log(testData);
   try {
     return await octokit.request(`GET /users/${username}`).then(res => res.data);
   } catch (err: unknown) {
@@ -33,5 +31,6 @@ export const searchUsers = async (
     } else if (err instanceof Error) {
       console.error(err.message); // works, `e` narrowed to Error
     }
+    return err;
   };
 };
