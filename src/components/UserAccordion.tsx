@@ -39,8 +39,6 @@ const UserAccordion = ({userList}: IUserAccordionProps) => {
 
   if (error) console.error(error);
 
-  console.log(userData.data);
-
   return (
     <>
       {userList?.items?.map((user, index) => {
