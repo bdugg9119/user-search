@@ -1,7 +1,4 @@
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import ImageIcon from '@mui/icons-material/Image';
-import WorkIcon from '@mui/icons-material/Work';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import {
   Accordion,
   AccordionDetails,
@@ -12,7 +9,6 @@ import {
   Link,
   List,
   ListItem,
-  ListItemAvatar,
   ListItemText,
   Stack,
   Typography
