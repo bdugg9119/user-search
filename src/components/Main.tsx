@@ -53,7 +53,7 @@ const Main = () => {
           <CircularProgress size={80}/>
         </Box>
       )}
-      <UserAccordion userList={userList} />
+      <UserAccordion userList={userList?.data} />
     </>
   );
 };

@@ -5,10 +5,13 @@ import {
   Stack
 } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Octokit } from 'octokit';
 
 import { Main } from './components';
 
 const queryClient = new QueryClient();
+
+export const octokit = new Octokit({ auth: process.env.REACT_APP_TOKEN });
 
 function App() {
   return (
@@ -25,6 +28,6 @@ function App() {
       </QueryClientProvider>
     </div>
   );
-}
+};
 
 export default App;

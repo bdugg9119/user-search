@@ -4,11 +4,11 @@ import {
   SearchType
 } from '../types';
 
-const BASE_URL = 'https://api.github.com/';
+import { octokit } from '../App';
 
-export const getUser = async (id: number): Promise<User> => {
+export const getUser = async (username: string): Promise<any> => {
   try {
-    return await fetch(BASE_URL + `user/${id}`).then(res => res.json());
+    return await octokit.request(`GET /users/${username}`);
   } catch (err: any) {
     return err;
   };
@@ -19,11 +19,15 @@ export const searchUsers = async (
   searchType: SearchType,
   resultsPerPage: number,
   currentPage: number
-  ): Promise<UserList> => {
-  const searchQuery = `search/users?q=${query}%20in:${searchType}&per_page=${resultsPerPage}&page=${currentPage}`;
+  ) => {
+  const searchQuery = {
+    page: currentPage,
+    per_page: resultsPerPage,
+    q: query + ` in:${searchType}`
+  };
 
   try {
-    return await fetch(BASE_URL + searchQuery).then(res => res.json());
+    return await octokit.rest.search.users(searchQuery); 
   } catch(err: any) {
     return err;
   };

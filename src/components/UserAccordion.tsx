@@ -25,19 +25,21 @@ export interface IUserAccordionProps {
 
 const UserAccordion = ({userList}: IUserAccordionProps) => {
   const [expanded, setExpanded] = useState<string | false>(false);
-  const [queryParams, setQueryParams] = useState<number>(0);
+  const [username, setUsername] = useState<string>('');
   const { data: userData, error, isFetching } = useQuery(
-    ['users', queryParams],
-    () => getUser(queryParams),
-    { enabled: !!queryParams, refetchOnWindowFocus: false }
+    ['users', username],
+    () => getUser(username),
+    { enabled: !!username, refetchOnWindowFocus: false }
   );
 
-  const handleChange = (panel: string, userId: number) => (e: React.SyntheticEvent, isExpanded: boolean) => {
+  const handleChange = (panel: string, username: string) => (_: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
-    setQueryParams(userId);
+    setUsername(username);
   };
 
   if (error) console.error(error);
+
+  console.log(userData.data);
 
   return (
     <>
@@ -46,7 +48,7 @@ const UserAccordion = ({userList}: IUserAccordionProps) => {
           <Accordion
             expanded={expanded === `panel${index}`}
             key={index}
-            onChange={handleChange(`panel${index}`, user.id)}
+            onChange={handleChange(`panel${index}`, user.login)}
             TransitionProps={{ unmountOnExit: true }}
           >
             <AccordionSummary
@@ -91,28 +93,28 @@ const UserAccordion = ({userList}: IUserAccordionProps) => {
               <Stack direction='row'>
                 <List sx={{ width: '50%' }}>
                   <ListItem>
-                    <ListItemText primary={userData?.name || 'Not Specified'} secondary='Name' />
+                    <ListItemText primary={userData?.data.name || 'Not Specified'} secondary='Name' />
                   </ListItem>
                   <ListItem>
-                    <ListItemText primary={userData?.location || 'Not Specified'} secondary='Location' />
+                    <ListItemText primary={userData?.data.location || 'Not Specified'} secondary='Location' />
                   </ListItem>
                   <ListItem>
-                    <ListItemText primary={userData?.email || 'Not Specified'} secondary='Email' />
+                    <ListItemText primary={userData?.data.email || 'Not Specified'} secondary='Email' />
                   </ListItem>
                 </List>
                 <List>
                   <ListItem>
-                    <ListItemText primary={userData?.public_repos || 'None'} secondary='Public Repos' />
+                    <ListItemText primary={userData?.data.public_repos || 'None'} secondary='Public Repos' />
                   </ListItem>
                   <ListItem>
                     <ListItemText
-                      primary={userData && (new Date(userData.created_at).toLocaleDateString('en-US') || 'Not Specified')}
+                      primary={userData && (new Date(userData.data.created_at).toLocaleDateString('en-US') || 'Not Specified')}
                       secondary='Created'
                     />
                   </ListItem>
                   <ListItem>
                     <ListItemText
-                      primary={userData && (new Date(userData.updated_at).toLocaleDateString('en-US') || 'Not Specified')}
+                      primary={userData && (new Date(userData.data.updated_at).toLocaleDateString('en-US') || 'Not Specified')}
                       secondary='Latest Update'
                     />
                   </ListItem>
