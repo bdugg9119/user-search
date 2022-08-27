@@ -37,8 +37,6 @@ const UserAccordion = ({userList}: IUserAccordionProps) => {
     setUsername(username);
   };
 
-  useEffect(() => console.log(username), [username]);
-
   if (error) console.error(error);
 
   return (
