@@ -2,6 +2,18 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Installation
+
+To run the project locally, begin by cloning the repo to your machine.
+
+Then, you will need to create a `.env` file in the root directory of the project.
+
+The `.env` file will contain one piece of information, a Github Access Token. 
+
+You *MUST* use start the name of your environment variable with `REACT_APP_`, if you don't it will not work. 
+
+The format is as follows: `REACT_APP_TOKEN=<Gituhub Access Token Here>`
+
 ## Available Scripts
 
 In the project directory, you can run:
