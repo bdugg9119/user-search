@@ -7,7 +7,7 @@ import {
 import {useQuery} from '@tanstack/react-query';
 
 import { searchUsers } from '../api';
-import { ListUser, SearchType, UserList } from '../types';
+import { SearchType, UserList } from '../types';
 
 import SearchBar from './SearchBar';
 import UserAccordion from './UserAccordion';

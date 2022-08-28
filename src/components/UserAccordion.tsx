@@ -23,7 +23,7 @@ export interface IUserAccordionProps {
   userList?: ListUser[]
 };
 
-const UserAccordion = ({userList}: IUserAccordionProps) => {
+const UserAccordion = ({ userList }: IUserAccordionProps) => {
   const [expanded, setExpanded] = useState<string | false>(false);
   const [username, setUsername] = useState<string>('');
   const { data: userData, error, isFetching } = useQuery(

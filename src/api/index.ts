@@ -7,9 +7,9 @@ export const getUser = async (username: string): Promise<any> => {
     return await octokit.request(`GET /users/${username}`).then(res => res.data);
   } catch (err: unknown) {
     if (typeof err === "string") {
-      console.error(err.toUpperCase()); // works, `e` narrowed to string
+      console.error(err.toUpperCase()); 
     } else if (err instanceof Error) {
-      console.error(err.message); // works, `e` narrowed to Error
+      console.error(err.message); 
     }
     return err;
   };
@@ -26,9 +26,9 @@ export const searchUsers = async (
     return await octokit.rest.search.users(searchQuery).then(res => res.data); 
   } catch (err: unknown) {
     if (typeof err === "string") {
-      console.error(err.toUpperCase()); // works, `e` narrowed to string
+      console.error(err.toUpperCase());
     } else if (err instanceof Error) {
-      console.error(err.message); // works, `e` narrowed to Error
+      console.error(err.message);
     }
     return err;
   };

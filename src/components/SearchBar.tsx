@@ -57,7 +57,7 @@ const SearchBar = ({ handleSubmit, resultsCount }: ISearchBarProps) => {
   useEffect(() => setPageCount(handlePageCount()), [resultsCount]);
 
   useEffect(() => {
-    const pageLimit = handlePageCount()
+    const pageLimit = handlePageCount();
     if (currentPage > pageLimit) {
       setCurrentPage(pageLimit);
     } else {
