@@ -71,9 +71,6 @@ const SearchBar = ({ handleSubmit, resultsCount }: ISearchBarProps) => {
     handleSubmit(queryString, searchType, resultsPerPage, currentPage);
   }, [currentPage]);
 
-  console.log('division: ', (Math.ceil(resultsCount / resultsPerPage)));
-  console.log(resultsCount);
-
   return (
     <>
       <Grid container>
