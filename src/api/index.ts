@@ -20,11 +20,10 @@ export const searchUsers = async (
   searchType: SearchType,
   resultsPerPage: number,
   currentPage: number
-  ): Promise<any> => {
+): Promise<any> => {
   const searchQuery = { page: currentPage, per_page: resultsPerPage, q: query + ` in:${searchType}` };
-
   try {
-    return await octokit.rest.search.users(searchQuery).then(res => res.data.items); 
+    return await octokit.rest.search.users(searchQuery).then(res => res.data); 
   } catch (err: unknown) {
     if (typeof err === "string") {
       console.error(err.toUpperCase()); // works, `e` narrowed to string

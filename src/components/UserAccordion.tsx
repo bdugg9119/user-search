@@ -28,7 +28,7 @@ const UserAccordion = ({userList}: IUserAccordionProps) => {
   const [username, setUsername] = useState<string>('');
   const { data: userData, error, isFetching } = useQuery(
     ['users', username],
-    () => getUser(username)as Promise<User>,
+    () => getUser(username) as Promise<User>,
     { enabled: !!username, refetchOnWindowFocus: false }
   );
 
@@ -41,7 +41,7 @@ const UserAccordion = ({userList}: IUserAccordionProps) => {
 
   return (
     <>
-      {userList?.map((user: ListUser, index: number) => {
+      {userList?.map((user, index) => {
         return (
           <Accordion
             expanded={expanded === `panel${index}`}

@@ -7,7 +7,7 @@ import {
 import {useQuery} from '@tanstack/react-query';
 
 import { searchUsers } from '../api';
-import { ListUser, SearchType } from '../types';
+import { ListUser, SearchType, UserList } from '../types';
 
 import SearchBar from './SearchBar';
 import UserAccordion from './UserAccordion';
@@ -26,7 +26,7 @@ const Main = () => {
       queryParams.searchType,
       queryParams.resultsPerPage,
       queryParams.currentPage
-    ),
+    ) as Promise<UserList>,
     {
       enabled: !!queryParams.queryString,
       refetchOnWindowFocus: false
@@ -46,14 +46,14 @@ const Main = () => {
 
   return (
     <>
-      <SearchBar handleSubmit={submitQuery} />
+      <SearchBar handleSubmit={submitQuery} resultsCount={userList ? userList.total_count : 0} />
       <Divider sx={{ marginBottom: '25px', marginTop: '25px' }}/>
       {isFetching ? (
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <CircularProgress size={80}/>
         </Box>
       ) : (
-        <UserAccordion userList={userList as ListUser[]} />
+        <UserAccordion userList={userList?.items} />
       )}
     </>
   );

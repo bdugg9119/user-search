@@ -20,6 +20,12 @@ export type ListUser = {
   url: string
 };
 
+export type UserList = {
+  incomplete_results: boolean,
+  items: ListUser[],
+  total_count: number
+};
+
 export type User = {
   avatar_url: string,
   bio: string,

@@ -25,15 +25,23 @@ export interface ISearchBarProps {
     resultsPerPage: number,
     currentPage: number
   ) => void,
-}
+  resultsCount: number
+};
 
-const SearchBar = ({ handleSubmit}: ISearchBarProps) => {
+const SearchBar = ({ handleSubmit, resultsCount }: ISearchBarProps) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageCount, setPageCount] = useState(34);
+  const [pageCount, setPageCount] = useState(1);
   const [queryString, setQueryString] = useState('');
-  const [resultsPerPage, setResultsPerPage] = useState(50);
+  const [resultsPerPage, setResultsPerPage] = useState(30);
   const [searchType, setSearchType] = useState(SearchType.Name);
   const [textError, setTextError] = useState(false);
+
+  const handlePageCount = () => {
+    // Github limits search API to 1000 results.
+    const pageLimit = Math.ceil(1000 / resultsPerPage);
+    const resultPages = Math.ceil(resultsCount / resultsPerPage);
+    return Math.min(pageLimit, resultPages);
+  };
 
   const submitData = () => {
     if (queryString === '') {
@@ -46,20 +54,25 @@ const SearchBar = ({ handleSubmit}: ISearchBarProps) => {
     handleSubmit(queryString, searchType, resultsPerPage, currentPage);
   };
 
+  useEffect(() => setPageCount(handlePageCount()), [resultsCount]);
+
   useEffect(() => {
-    const pageLimit = Math.ceil(1000 / resultsPerPage);
+    const pageLimit = handlePageCount()
     if (currentPage > pageLimit) {
       setCurrentPage(pageLimit);
     } else {
       handleSubmit(queryString, searchType, resultsPerPage, currentPage);
     }
+
     setPageCount(pageLimit);
   }, [resultsPerPage]);
 
   useEffect(() => {
-    handleSubmit(queryString, searchType, resultsPerPage, currentPage)
+    handleSubmit(queryString, searchType, resultsPerPage, currentPage);
   }, [currentPage]);
 
+  console.log('division: ', (Math.ceil(resultsCount / resultsPerPage)));
+  console.log(resultsCount);
 
   return (
     <>
